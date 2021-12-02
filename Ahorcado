@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+class Ahorcado {
+static void Main() {
+
+string jugador1 = "";
+string jugador2 = "";
+string palabra = "";
+bool terminado = true;
+bool decisionF = false;
+int nLetras = 0;
+
+    do{
+        Console.WriteLine("Bienvenido a este juego llamado ¨Ahorcado¨ Donde podras divertirte adivinando la palabra del otro jugador \n \nRECOMENDACIONES: \n-Solo hay 5 oportunidades para adivinar la palabra \n-El programa solo acepta palabras (No numeros ni caracteres especiales) \n-¡Diviertete!");
+        Console.ReadLine();
+        Console.WriteLine("Ingresa el jugador que pondra la palabra");
+        jugador1 = Console.ReadLine();
+        Console.WriteLine("Ingresa el nombre del jugador que adivinara");
+        jugador2 = Console.ReadLine();
+        Console.WriteLine("¿Cuantas letras tiene tu palabra?");
+        nLetras = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Es hora de poner la palabra \nSolo el jugador ¨" + jugador1 + "¨ puede ver la pantalla \nEscribe debajo la palabra:");
+        palabra = Console.ReadLine();
+        string[] palabra2 = new string[nLetras];
+        string[] pAdivinada = new string[nLetras];
+
+        for(int d = 0; d < nLetras; d++){
+            palabra2[d] = Char.ToString(palabra[d]);
+            pAdivinada[d] = "_ ";
+        }
+        string decision = "";
+        int contador1 = 5;
+        int contador2 = 0;
+        bool h = true;
+        Console.WriteLine("Es hora de jugar " + jugador2);
+        Console.ReadLine();
+        do{
+            string letra = "";
+            foreach(string c in pAdivinada){ 
+                Console.Write("{0} ", c);
+            } 
+            Console.WriteLine("\n¿Que letra crees que hay en la palabra?");
+            letra = Console.ReadLine();
+            for(int c = 0; c < nLetras; c++){
+                if(letra == palabra2[c]){
+                    Console.WriteLine("Muy bien has adivinado una letra");
+                    Console.ReadLine();
+                    palabra2[c] = "0";
+                    pAdivinada[c] = letra;
+                    contador2 += 1;
+                    h = false;
+                    break;
+                }else{
+                    h = true;
+                }
+            }
+
+            if(h == true){
+                contador1 -= 1;
+                Console.WriteLine("¡Repampanos! No has adivinado ninguna letra \nTe quedan " + contador1 + " oportunidades");
+                Console.ReadLine();
+            }
+            if(nLetras == contador2){
+                terminado = false;
+                foreach(string p in pAdivinada){ 
+                    Console.Write("{0} ", p);
+                } 
+                Console.WriteLine("\nMuy bien " + jugador2 + " Has adivinado la palabra ¨" + palabra + "¨ \n¡Felicidades! Ahora " + jugador1 + " te debe una Play 5");
+                Console.ReadLine();
+            }
+            if(contador1 == 0){
+                terminado = false;
+                foreach(string o in pAdivinada){ 
+                    Console.Write("{0} ", o);
+                } 
+                    Console.WriteLine("\nQue noob eres " + jugador2 + " Mejor sigue programando \nAhora le debes una Play 5 a " + jugador1);
+                    Console.ReadLine();
+            }
+            
+        }while(terminado == true);
+        Console.WriteLine("¿Deseas volver a jugar?");
+        decision = Console.ReadLine();
+        if(decision == "SI" || decision == "si" || decision == "Si" || decision == "sI"){
+            decisionF = true;
+        }else{
+            decisionF = false;
+        }
+    }while(decisionF == true);
+        Console.WriteLine("Muchas gracias por jugar ¨Ahorcado¨");
+    }
+}
