@@ -1,0 +1,82 @@
+<script>
+var jugador1 = "";
+var jugador2 = "";
+var num = 0;
+var nombres = [];
+var palabra = "";
+var palabra2 = [];
+var pAdivinada = [];
+var terminado = true;
+
+jugar();
+
+function Bienvenida() {
+    alert("Bienvenido a este juego llamado ¨Ahorcado¨ Donde podras divertirte adivinando la palabra del otro jugador" + "\n" + "\n" + "RECOMENDACIONES:" + "\n" + "-Solo hay 5 oportunidades para adivinar la palabra" + "\n" + "-El programa solo acepta palabras (No numeros ni caracteres especiales)" + "\n" + "-¡Diviertete!");
+}
+
+function registrar() {
+    jugador1 = prompt("Ingresa el jugador que pondra la palabra");
+    jugador2 = prompt("Ingresa el nombre del jugador que adivinara");
+    palabra = prompt("Es hora de poner la palabra" + "\n" + "Solo el jugador ¨" + jugador1 + "¨ puede ver la pantalla" + "\n" + "Escribe en el recuadro de abajo la palabra:");
+    for(var d = 0; d < palabra.length; d++){
+        palabra2.push(palabra[d]);
+        pAdivinada.push("_ ");
+    }
+}
+function despedir(){
+    alert("Muchas gracias por jugar ¨Ahorcado¨");
+}
+
+function jugar (){
+    do{
+        Bienvenida();
+        registrar();
+        var decision = "";
+        var decisionF = false;
+        var contador1 = 5;
+        var contador2 = 0;
+        var h = true;
+        alert("Es hora de jugar " + jugador2);
+        do{
+            var letra = "";
+            console.log(pAdivinada);
+            letra = prompt("¿Que letra crees que hay en la palabra?");
+            for(var c = 0; c < palabra.length; c++){
+                if(letra == palabra2[c]){
+                    alert("Muy bien has adivinado una letra");
+                    palabra2[c] = "0";
+                    pAdivinada[c] = letra;
+                    contador2 +=1;
+                    h = false;
+                    break;
+                }else{
+                    h = true;
+                }
+            }
+
+            if(h == true){
+                contador1 -= 1;
+                alert("¡Repampanos! No has adivinado ninguna letra" + "\n" + "Te quedan " + contador1 + " oportunidades");
+            }
+            if(palabra.length == contador2){
+                terminado = false;
+                console.log(pAdivinada);
+                alert("Muy bien " + jugador2 + " Has adivinado la palabra ¨" + palabra + "¨" + "\n" + "¡Felicidades! Ahora " + jugador1 + " te debe una Play 5");
+            }
+            if(contador1 == 0){
+                terminado = false;
+                console.log(pAdivinada);
+                alert("Que noob eres " + jugador2 + " Mejor sigue programando" + "\n" + "Ahora le debes una Play 5 a " + jugador1);
+            }
+            
+        }while(terminado == true);
+        decision = prompt("¿Deseas volver a jugar?");
+        if(decision == "SI" || decision == "si" || decision == "Si" || decision == "sI"){
+            decisionF = true;
+        }else{
+            decisionF = false;
+        }
+    }while(decisionF == true);
+    despedir();
+}
+</script>
